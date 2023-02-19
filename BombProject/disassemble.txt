@@ -345,3 +345,72 @@
     1a66:       eb d4                   jmp    1a3c <secret_phase+0x29>
     1a68:       e8 a2 03 00 00          call   1e0f <explode_bomb>
     1a6d:       eb df                   jmp    1a4e <secret_phase+0x3b>
+    
+    0000000000001afe <string_length>:
+    1afe:       f3 0f 1e fa             endbr64
+    1b02:       80 3f 00                cmpb   $0x0,(%rdi)
+    1b05:       74 12                   je     1b19 <string_length+0x1b>
+    1b07:       b8 00 00 00 00          mov    $0x0,%eax
+    1b0c:       48 83 c7 01             add    $0x1,%rdi
+    1b10:       83 c0 01                add    $0x1,%eax
+    1b13:       80 3f 00                cmpb   $0x0,(%rdi)
+    1b16:       75 f4                   jne    1b0c <string_length+0xe>
+    1b18:       c3                      ret
+    1b19:       b8 00 00 00 00          mov    $0x0,%eax
+    1b1e:       c3                      ret
+
+0000000000001b1f <strings_not_equal>:
+    1b1f:       f3 0f 1e fa             endbr64
+    1b23:       41 54                   push   %r12
+    1b25:       55                      push   %rbp
+    1b26:       53                      push   %rbx
+    1b27:       48 89 fb                mov    %rdi,%rbx
+    1b2a:       48 89 f5                mov    %rsi,%rbp
+    1b2d:       e8 cc ff ff ff          call   1afe <string_length>
+    1b32:       41 89 c4                mov    %eax,%r12d
+    1b35:       48 89 ef                mov    %rbp,%rdi
+    1b38:       e8 c1 ff ff ff          call   1afe <string_length>
+    1b3d:       89 c2                   mov    %eax,%edx
+    1b3f:       b8 01 00 00 00          mov    $0x1,%eax
+    1b44:       41 39 d4                cmp    %edx,%r12d
+    1b47:       75 31                   jne    1b7a <strings_not_equal+0x5b>
+    1b49:       0f b6 13                movzbl (%rbx),%edx
+    1b4c:       84 d2                   test   %dl,%dl
+    1b4e:       74 1e                   je     1b6e <strings_not_equal+0x4f>
+    1b50:       b8 00 00 00 00          mov    $0x0,%eax
+    1b55:       38 54 05 00             cmp    %dl,0x0(%rbp,%rax,1)
+    1b59:       75 1a                   jne    1b75 <strings_not_equal+0x56>
+    1b5b:       48 83 c0 01             add    $0x1,%rax
+    1b5f:       0f b6 14 03             movzbl (%rbx,%rax,1),%edx
+    1b63:       84 d2                   test   %dl,%dl
+    1b65:       75 ee                   jne    1b55 <strings_not_equal+0x36>
+    1b67:       b8 00 00 00 00          mov    $0x0,%eax
+    1b6c:       eb 0c                   jmp    1b7a <strings_not_equal+0x5b>
+    1b6e:       b8 00 00 00 00          mov    $0x0,%eax
+    1b73:       eb 05                   jmp    1b7a <strings_not_equal+0x5b>
+    1b75:       b8 01 00 00 00          mov    $0x1,%eax
+    1b7a:       5b                      pop    %rbx
+    1b7b:       5d                      pop    %rbp
+    1b7c:       41 5c                   pop    %r12
+    1b7e:       c3                      ret
+    
+    0000000000001e51 <read_six_numbers>:
+    1e51:       f3 0f 1e fa             endbr64
+    1e55:       48 83 ec 08             sub    $0x8,%rsp
+    1e59:       48 89 f2                mov    %rsi,%rdx
+    1e5c:       48 8d 4e 04             lea    0x4(%rsi),%rcx
+    1e60:       48 8d 46 14             lea    0x14(%rsi),%rax
+    1e64:       50                      push   %rax
+    1e65:       48 8d 46 10             lea    0x10(%rsi),%rax
+    1e69:       50                      push   %rax
+    1e6a:       4c 8d 4e 0c             lea    0xc(%rsi),%r9
+    1e6e:       4c 8d 46 08             lea    0x8(%rsi),%r8
+    1e72:       48 8d 35 d8 15 00 00    lea    0x15d8(%rip),%rsi        # 3451 <array.3473+0x271>
+    1e79:       b8 00 00 00 00          mov    $0x0,%eax
+    1e7e:       e8 6d f4 ff ff          call   12f0 <__isoc99_sscanf@plt>
+    1e83:       48 83 c4 10             add    $0x10,%rsp
+    1e87:       83 f8 05                cmp    $0x5,%eax
+    1e8a:       7e 05                   jle    1e91 <read_six_numbers+0x40>
+    1e8c:       48 83 c4 08             add    $0x8,%rsp
+    1e90:       c3                      ret
+    1e91:       e8 79 ff ff ff          call   1e0f <explode_bomb>
