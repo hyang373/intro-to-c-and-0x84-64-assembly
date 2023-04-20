@@ -3,10 +3,10 @@ Disclaimer: this is the solution for p1, p1.c provided by the professor
   - Last Edited: 04/20/2023
   - Changes: defined destroy() and edit() functions for extra credit
  Notes: edit(aa, bbb, aaaaa) -> bbbbbba [current: aaaaa->bbbbb]
-        edit(hyper, <empty string>, hypermobility) -> mobility [current: ]
+        edit(hyper, <empty string>, hypermobility) -> mobility [current: ypermobility]
         edit(the, not the, Now is the time for all good men to come to the aid of their party.) 
             -> Now is not the time for all good men to come to not the aid of their party.
-            [current: ]
+            [current: Now is not the time for all good men to come to not the aid of not]
 
 */
 
